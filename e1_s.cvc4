@@ -1,0 +1,19 @@
+n,p,f : INT ;
+
+d_s,e_s : INT ;
+
+ASSERT IF n < p THEN
+FORALL ( k : INT) : 0 >= k AND k < n =>
+d_s = d_s + 1 ELSE
+FORALL ( i : INT) : 0 >= i AND i < n =>
+f = f + 2 ENDIF ;
+
+n,p,f : INT ;
+
+d_t,e_t : INT ;
+
+ASSERT d_t = (n + p) * f + 1 ;
+
+ASSERT e_t = (n - p) + (f +  1) ;
+
+QUERY NOT f = f1 ;

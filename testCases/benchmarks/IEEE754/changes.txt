@@ -1,0 +1,6 @@
+Following changes are made as they are not supported by SPARK
+1. switch-case to if-else
+2. remove printf
+3. while loop to for loop
+4. union to variable
+5. function are inlined manualy

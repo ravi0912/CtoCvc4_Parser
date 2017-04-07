@@ -1,0 +1,1 @@
+../../bin/spark -hcc -hvf -hs findmin8.c
