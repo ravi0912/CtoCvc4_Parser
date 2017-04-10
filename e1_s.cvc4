@@ -16,4 +16,4 @@ ASSERT d_t = (n + p) * f + 1 ;
 
 ASSERT e_t = (n - p) + (f +  1) ;
 
-QUERY NOT f = f1 ;
+CHECKSAT NOT n  = n ;

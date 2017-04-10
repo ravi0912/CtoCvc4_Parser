@@ -217,11 +217,9 @@ def cToCvc4(name,fo,file):
 
 # Open a file 1
 p = sys.argv
-fo = open(p[-4], "r")
-fo1 = open(p[-3], "r")
-v1 = p[-2]
-v2 = p[-1]
-
+fo = open(p[-3], "r")
+fo1 = open(p[-2], "r")
+v = p[-1]
 
 #naming file name
 name=fo.name
@@ -242,5 +240,11 @@ file=open(name,'a')
 cToCvc4(name,fo,file)
 cToCvc4(name,fo1,file)
 
-file.write("CHECKSAT NOT "+v1+" = "+v2+" ;\n")
+for i in range(0,int(v)):
+	x = raw_input("Enter first variable to proof sat : ")
+	y = raw_input("Enter second variable to proof sat : ")
+	file.write("CHECKSAT NOT "+x+" = "+y+" ;\n")
+
 print "Parser is completed it's work.. Done by RK"
+sys.exit()
+
