@@ -1,13 +1,6 @@
 int main(void)
 {
- int a1;
- int a2;
- int a3;
- int a4;
- int a5;
- int a6;
- int a7;
- int a8;
+ int a[8];
  int a12_t;
  int a34_t;
  int a56_t;
@@ -23,33 +16,33 @@ int main(void)
  bool sT5_28;
  bool sT6_31;
 
-sT0_13 = (a1 < a2);
-sT1_16 = (a3 < a4);
-sT2_19 = (a5 < a6);
-sT3_22 = (a7 < a8);
+sT0_13 = (a[0] < a[1]);
+sT1_16 = (a[2] < a[3]);
+sT2_19 = (a[4] < a[5]);
+sT3_22 = (a[6] < a[7]);
 if (sT0_13){
-  a12_t = a1;
+  a12_t = a[0];
 }else{
-  a12_t = a2;
+  a12_t = a[1];
 }  
 if(sT1_16){
-  a34_t = a3;
-  sT4_25 = (a12_t < a3);
+  a34_t = a[2];
+  sT4_25 = (a12_t < a[2]);
 }else{
-  sT4_25 = (a12_t < a4);
-  a34_t = a4;
+  sT4_25 = (a12_t < a[3]);
+  a34_t = a[3];
 }  
 if(sT2_19){
-  a56_t = a5;
+  a56_t = a[4];
 }else{
-  a56_t = a6;
+  a56_t = a[5];
 }
 if(sT3_22){
-  a78_t = a7;
-  sT5_28 = (a56_t < a7);
+  a78_t = a[6];
+  sT5_28 = (a56_t < a[6]);
 }else{
-  sT5_28 = (a56_t < a8);
-  a78_t = a8;
+  sT5_28 = (a56_t < a[7]);
+  a78_t = a[7];
 } 
 if(sT4_25){
   a14_t = a12_t;

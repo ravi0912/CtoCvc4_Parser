@@ -1,0 +1,41 @@
+n1, n2, gcd_t,n_t,d_t : INT ;
+
+k1_t,k2_t : INT ;
+
+ASSERT gcd_t=1 ;
+
+ASSERT IF n1>0  AND  n2>0 THEN
+IF n1 <= n2 THEN
+n_t = n1 ELSE
+n_t = n2 ENDIF AND
+FORALL ( i : INT) : 1 <= i AND  i <= n_t =>
+k1_t = n1/i AND
+k2_t = n2/i AND
+k1_t = n1 - k1_t*i AND
+k2_t = n2 - k2_t*i AND
+IF k1_t = 0  AND  k2_t = 0 THEN
+gcd_t = i ELSE
+d_t = gcd_t + 1 ENDIF ELSE
+gcd_t=0 ENDIF ;
+
+n1, n2, gcd_t,n_t,d_t : INT ;
+
+k1_t,k2_t : INT ;
+
+ASSERT gcd_t=1 ;
+
+ASSERT IF n1>0  AND  n2>0 THEN
+IF n1 <= n2 THEN
+n_t = n1 ELSE
+n_t = n2 ENDIF AND
+FORALL ( i : INT) : 1 <= i AND  i <= n_t  AND  i<= n2 =>
+k1_t = n1/i AND
+k2_t = n2/i AND
+k1_t = n1 - k1_t*i AND
+k2_t = n2 - k2_t*i AND
+IF k1_t = 0  AND  k2_t = 0 THEN
+gcd_t = i ELSE
+d_t = gcd_t + 1 ENDIF ELSE
+gcd_t=0 ENDIF ;
+
+CHECKSAT NOT gcd_t = gcd_t ;

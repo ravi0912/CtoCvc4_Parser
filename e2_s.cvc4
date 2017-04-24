@@ -1,29 +1,17 @@
-n1,p1,f1 : INT ;
+n1_s,n2_s,n3_s : INT ;
 
-d_s1,e_s1 : INT ;
+a_s : INT ;
 
-A: TYPE = ARRAY INT OF REAL;
-arr: A;
-arr_array1: INT = 5;
-arr_array2: INT = 10;
-elem: REAL = arr[arr_array1][arr_array2] ;
+ASSERT a_s = (n1_s + n2_s + n3_s) / 3 ;
 
-i : INT ;
+n1_t,n2_t,n3_t : INT ;
 
-ASSERT i=0 ;
+s_t : INT ;
 
-ASSERT arr[0][0]=0 ;
+a_t : INT ;
 
-ASSERT FORALL ( x : INT) : i< n1 =>
-arr[0][1] = arr[0][1] + 1 AND
-i=i+1 ;
+ASSERT s_t = n1_t + n2_t + n3_t ;
 
-n,p,f : INT ;
+ASSERT a_t = s_t / 3 ;
 
-d_t,e_t : INT ;
-
-ASSERT d_t = (n + p) * f + 1 ;
-
-ASSERT e_t = (n - p) + (f +  1) ;
-
-CHECKSAT NOT f = f1 ;
+CHECKSAT NOT a_s = a_t ;

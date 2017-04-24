@@ -12,7 +12,7 @@ int main()
             n_t = n2;
         }
         
-        for(int i=1; i <= n_t; i=i+1){
+        for(int i=1; i <= n_t && i<= n2; i=i+1){
             k1_t = n1/i;
             k2_t = n2/i;
             k1_t = n1 - k1_t*i;

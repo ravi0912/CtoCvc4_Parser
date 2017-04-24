@@ -1,0 +1,123 @@
+a1, a2, a3, a4, a5, a6, a7, a8 : INT ;
+
+a12_s, a34_s, a56_s, a78_s : INT ;
+
+a14_s, a58_s : INT ;
+
+a18_s : INT ;
+
+ASSERT IF a1<a2 THEN
+a12_s = a1 ELSE
+a12_s = a2 ENDIF ;
+
+ASSERT IF a3<a4 THEN
+a34_s = a3 ELSE
+a34_s= a4 ENDIF ;
+
+ASSERT IF a5<a6 THEN
+a56_s = a5 ELSE
+a56_s = a6 ENDIF ;
+
+ASSERT IF a7<a8 THEN
+a78_s = a7 ELSE
+a78_s = a8 ENDIF ;
+
+ASSERT IF a12_s<a34_s THEN
+a14_s = a12_s ELSE
+a14_s = a34_s ENDIF ;
+
+ASSERT IF a56_s<a78_s THEN
+a58_s = a56_s ELSE
+a58_s = a78_s ENDIF ;
+
+ASSERT IF a14_s<a58_s THEN
+a18_s = a14_s ELSE
+a18_s = a58_s ENDIF ;
+
+a1 : INT ;
+
+a2 : INT ;
+
+a3 : INT ;
+
+a4 : INT ;
+
+a5 : INT ;
+
+a6 : INT ;
+
+a7 : INT ;
+
+a8 : INT ;
+
+a12_t : INT ;
+
+a34_t : INT ;
+
+a56_t : INT ;
+
+a78_t : INT ;
+
+a14_t : INT ;
+
+a58_t : INT ;
+
+a18_t : INT ;
+
+sT0_13 : BOOLEAN ;
+
+sT1_16 : BOOLEAN ;
+
+sT2_19 : BOOLEAN ;
+
+sT3_22 : BOOLEAN ;
+
+sT4_25 : BOOLEAN ;
+
+sT5_28 : BOOLEAN ;
+
+sT6_31 : BOOLEAN ;
+
+ASSERT sT0_13 = (a1 < a2) ;
+
+ASSERT sT1_16 = (a3 < a4) ;
+
+ASSERT sT2_19 = (a5 < a6) ;
+
+ASSERT sT3_22 = (a7 < a8) ;
+
+ASSERT IF sT0_13 THEN
+a12_t = a1 ELSE
+a12_t = a2 ENDIF ;
+
+ASSERT IF sT1_16 THEN
+a34_t = a3 AND
+sT4_25 = (a12_t < a3) ELSE
+sT4_25 = (a12_t < a4) AND
+a34_t = a4 ENDIF ;
+
+ASSERT IF sT2_19 THEN
+a56_t = a5 ELSE
+a56_t = a6 ENDIF ;
+
+ASSERT IF sT3_22 THEN
+a78_t = a7 AND
+sT5_28 = (a56_t < a7) ELSE
+sT5_28 = (a56_t < a8) AND
+a78_t = a8 ENDIF ;
+
+ASSERT IF sT4_25 THEN
+a14_t = a12_t ELSE
+a14_t = a34_t ENDIF ;
+
+ASSERT IF sT5_28 THEN
+a58_t = a56_t AND
+sT6_31 = (a14_t < a56_t) ELSE
+sT6_31 = (a14_t < a78_t) AND
+a58_t = a78_t ENDIF ;
+
+ASSERT IF sT6_31 THEN
+a18_t = a14_t ELSE
+a18_t = a58_t ENDIF ;
+
+CHECKSAT NOT a18_s = a18_t ;

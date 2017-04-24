@@ -1,0 +1,37 @@
+n_s : INT ;
+
+min_s,i_s,j_s,temp_s,j_star_s : INT ;
+
+A: TYPE = ARRAY INT OF REAL;
+a_s: A;
+a_s_array: INT = 8;
+elem: REAL = a_s[a_s_array] ;
+
+ASSERT a_s[0]=23 ;
+
+ASSERT a_s[1]=11 ;
+
+ASSERT a_s[2]=27 ;
+
+ASSERT a_s[3]=19 ;
+
+ASSERT a_s[4]=12 ;
+
+ASSERT a_s[5]=10 ;
+
+ASSERT a_s[6]=31 ;
+
+ASSERT a_s[7]=7 ;
+
+ASSERT min_s = a_s[0] ;
+
+ASSERT FORALL ( i_s : INT) : 0 >= i_s AND i_s <= n_s-2 =>
+min_s = a_s[i_s] AND
+j_star_s = i_s AND
+FORALL ( j_s : INT) : i_s+1 >= j_s AND j_s <= n_s-1 =>
+IF a_s[j_s]<min_s THEN
+min_s=a_s[j_s] AND
+j_star_s=j_s AND
+temp_s = a_s[i_s] AND
+a_s[i_s] = a_s[j_star_s] AND
+a_s[j_star_s] = temp_s

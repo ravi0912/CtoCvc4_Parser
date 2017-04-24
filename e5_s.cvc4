@@ -1,0 +1,38 @@
+n_s,o_s,e_s : INT ;
+
+k_s : INT ;
+
+ASSERT o_s = 0 ;
+
+ASSERT e_s = 0 ;
+
+ASSERT FORALL ( i : INT) : 0 <= i AND i < n_s =>
+k_s = i / 2 AND
+k_s = i - 2*k_s AND
+IF k_s = 0 THEN
+o_s = o_s + i ELSE
+e_s = e_s + i ENDIF ;
+
+n_t,o_t,e_t : INT ;
+
+k_t : INT ;
+
+ASSERT o_t = 0 ;
+
+ASSERT e_t = 0 ;
+
+i_t : INT ;
+
+ASSERT i_t=0 ;
+
+ASSERT FORALL ( x : INT) : i_t<n_t =>
+e_t = e_t + i_t AND
+i_t = i_t + 2 ;
+
+ASSERT i_t = 1 ;
+
+ASSERT FORALL ( x : INT) : i_t<n_t =>
+o_t = o_t + i_t AND
+i_t = i_t + 2 ;
+
+CHECKSAT NOT o_s = o_t ;

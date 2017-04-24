@@ -13,13 +13,16 @@ from sys import getsizeof
 from sets import Set
 from pythonds.basic.stack import Stack
 
+
+no_arr = 0
+
 #---------------------------------------support function---------------------------------------#
 
 def dataType(x):
     return {
         'int': 'INT',
         'char': 'CHAR',
-        'bool': 'BOOL',
+        'bool': 'BOOLEAN',
     }[x]
 
 #-----------------Strip left and right-----------------#
@@ -51,36 +54,39 @@ def find_between( s, first, last ):
         return ""
 
 #-----------------Define Array Data Structure-----------------#
-def defineArray(array_d,dt):
+def defineArray(array_d,dt,number_arr):
 	print array_d
+	number_arr = number_arr + 1
+	no_arr = str(number_arr)
+
 	if array_d.count('[')==1 :
 		i = find_between(array_d,"[","]")
 		s = array_d.split('[')
-		file.write("A: TYPE = ARRAY INT OF REAL;\n")
-		file.write(s[0]+": A;\n")
-		file.write(s[0]+"_array: INT = "+i+";\n")
-		file.write("elem: REAL = "+s[0]+"["+s[0]+"_array]")
+		file.write(s[0]+"_A"+no_arr+": TYPE = ARRAY INT OF REAL;\n")
+		file.write(s[0]+": "+s[0]+"_A"+no_arr+";\n")
+		file.write(s[0]+"_array"+no_arr+": INT = "+i+";\n")
+		file.write(s[0]+"_elem"+no_arr+": REAL = "+s[0]+"["+s[0]+"_array"+no_arr+"]")
 	else:
 		k = array_d.split('][')
 		s = k[0].split('[')[0]
 		i1 = k[0].split('[')[1]
 		i2 = k[1].split(']')[0]
-		file.write("A: TYPE = ARRAY INT OF REAL;\n")
-		file.write(s+": A;\n")
-		file.write(s+"_array1: INT = "+i1+";\n")
-		file.write(s+"_array2: INT = "+i2+";\n")
-		file.write("elem: REAL = "+s+"["+s+"_array1]["+s+"_array2]")
+		file.write(s+"_A"+no_arr+": TYPE = ARRAY INT OF REAL;\n")
+		file.write(s+":_A"+no_arr+";\n")
+		file.write(s+"_array1"+no_arr+": INT = "+i1+";\n")
+		file.write(s+"_array2"+no_arr+": INT = "+i2+";\n")
+		file.write(s+"_elem"+no_arr+": REAL = "+s+"["+s+"_array1"+no_arr+"]["+s+"_array2"+no_arr+"]")
 	return
 
 #-----------------Data Type Declaration-----------------#
-def defDataType( string ,file):
+def defDataType( string ,file,no_arr):
     string = string[:-1]
     dt = dataType(string.split(' ', 1)[0])
     if '[' in string.split(' ', 1)[1]:
-		defineArray(string.split(' ', 1)[1],dt)
-		return
+		defineArray(string.split(' ', 1)[1],dt,no_arr)
+		return no_arr+1
     file.write(string.split(' ', 1)[1] + " : " + dt)
-    return;
+    return no_arr
 
 #-----------------For loop condition extraction-----------------#
 def for_cond_init(cond,init):
@@ -94,12 +100,12 @@ def for_cond_init(cond,init):
 	c2 = findCond(cond)
 	g = cond.split(c2)
 	i2 = bothSideStrip(g[1])
-	c1 = ">="
+	c1 = "<="
 	return i1,i2,c1,c2,var;
 	
 
 #-----------------Read file and parse it to CVC4-----------------#
-def cToCvc4(name,fo,file):
+def cToCvc4(name,fo,file,no_arr):
 
 	#search for main function
 	lookup = 'main'
@@ -134,7 +140,7 @@ def cToCvc4(name,fo,file):
 		l[i] = l[i].replace("true", " TRUE ")
 		print l[i]
 		if l[i].startswith('int') or l[i].startswith('char') or l[i].startswith('bool'):
-			defDataType(l[i],file)
+			no_arr = defDataType(l[i],file,no_arr)
 		elif l[i].startswith('if'):
 			cond = find_between(l[i],"(",")")
 			st.push('i')
@@ -152,8 +158,9 @@ def cToCvc4(name,fo,file):
 			var="x"
 			print "c "+ cond
 			if "<" in cond or ">" in cond or "=" in cond :
+				print cond + "dk"
 				i1,i2,c1,c2,var = for_cond_init(cond,init)
-				bool_cond = i1+" "+c1+" "+var+" AND "+var+" "+c2+" "+i2
+				bool_cond = i1+" "+c1+" "+var+" AND "+cond
 			else :
 				bool_cond = cond
 			st.push('f')
@@ -212,7 +219,7 @@ def cToCvc4(name,fo,file):
 			else :
 				file.write(" AND\n")
 		print i
-
+	return no_arr
 #---------------------------------------main function---------------------------------------#
 
 # Open a file 1
@@ -236,9 +243,9 @@ except OSError:
     pass
 
 file=open(name,'a')
-
-cToCvc4(name,fo,file)
-cToCvc4(name,fo1,file)
+no_arr = 0
+no_arr = cToCvc4(name,fo,file,no_arr)
+no_arr = cToCvc4(name,fo1,file,no_arr)
 
 for i in range(0,int(v)):
 	x = raw_input("Enter first variable to proof sat : ")

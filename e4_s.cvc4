@@ -1,0 +1,35 @@
+n_s,s_s,i_s : INT ;
+
+a_s_A: TYPE = ARRAY INT OF REAL;
+a_s: a_s_A;
+a_s_array: INT = 10;
+a_s_elem: REAL = a_s[a_s_array] ;
+
+ASSERT i_s=0 ;
+
+ASSERT s_s=0 ;
+
+ASSERT FORALL ( x : INT) : i_s<n_s  AND  n_s<10 =>
+s_s = s_s + a_s[10] AND
+i_s = i_s +1 ;
+
+ASSERT s_s = s_s / n_s ;
+
+n_t,s_t : INT ;
+
+a_t_A: TYPE = ARRAY INT OF REAL;
+a_t: a_t_A;
+a_t_array: INT = 10;
+a_t_elem: REAL = a_t[a_t_array] ;
+
+ASSERT s_t=0 ;
+
+ASSERT IF n_t < 10 THEN
+FORALL ( i : INT) : 0 <= i AND i < n_t =>
+s_t = s_t + a_t[10] AND
+i=i+1 ELSE
+s_t = 0 ENDIF ;
+
+ASSERT s_t = s_t / n_t ;
+
+CHECKSAT NOT s_s = s_t ;

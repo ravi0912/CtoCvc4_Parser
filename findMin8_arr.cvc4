@@ -1,0 +1,115 @@
+a_A1: TYPE = ARRAY INT OF REAL;
+a: a_A1;
+a_array1: INT = 8;
+a_elem1: REAL = a[a_array1] ;
+
+a12_s, a34_s, a56_s, a78_s : INT ;
+
+a14_s, a58_s : INT ;
+
+a18_s : INT ;
+
+ASSERT IF a[0]<a[1] THEN
+a12_s = a[0] ELSE
+a12_s = a[1] ENDIF ;
+
+ASSERT IF a[2]<a[3] THEN
+a34_s = a[2] ELSE
+a34_s= a[3] ENDIF ;
+
+ASSERT IF a[4]<a[5] THEN
+a56_s = a[4] ELSE
+a56_s = a[5] ENDIF ;
+
+ASSERT IF a[6]<a[7] THEN
+a78_s = a[6] ELSE
+a78_s = a[7] ENDIF ;
+
+ASSERT IF a12_s<a34_s THEN
+a14_s = a12_s ELSE
+a14_s = a34_s ENDIF ;
+
+ASSERT IF a56_s<a78_s THEN
+a58_s = a56_s ELSE
+a58_s = a78_s ENDIF ;
+
+ASSERT IF a14_s<a58_s THEN
+a18_s = a14_s ELSE
+a18_s = a58_s ENDIF ;
+
+a_A2: TYPE = ARRAY INT OF REAL;
+a: a_A2;
+a_array2: INT = 8;
+a_elem2: REAL = a[a_array2] ;
+
+a12_t : INT ;
+
+a34_t : INT ;
+
+a56_t : INT ;
+
+a78_t : INT ;
+
+a14_t : INT ;
+
+a58_t : INT ;
+
+a18_t : INT ;
+
+sT0_13 : BOOLEAN ;
+
+sT1_16 : BOOLEAN ;
+
+sT2_19 : BOOLEAN ;
+
+sT3_22 : BOOLEAN ;
+
+sT4_25 : BOOLEAN ;
+
+sT5_28 : BOOLEAN ;
+
+sT6_31 : BOOLEAN ;
+
+ASSERT sT0_13 = (a[0] < a[1]) ;
+
+ASSERT sT1_16 = (a[2] < a[3]) ;
+
+ASSERT sT2_19 = (a[4] < a[5]) ;
+
+ASSERT sT3_22 = (a[6] < a[7]) ;
+
+ASSERT IF sT0_13 THEN
+a12_t = a[0] ELSE
+a12_t = a[1] ENDIF ;
+
+ASSERT IF sT1_16 THEN
+a34_t = a[2] AND
+sT4_25 = (a12_t < a[2]) ELSE
+sT4_25 = (a12_t < a[3]) AND
+a34_t = a[3] ENDIF ;
+
+ASSERT IF sT2_19 THEN
+a56_t = a[4] ELSE
+a56_t = a[5] ENDIF ;
+
+ASSERT IF sT3_22 THEN
+a78_t = a[6] AND
+sT5_28 = (a56_t < a[6]) ELSE
+sT5_28 = (a56_t < a[7]) AND
+a78_t = a[7] ENDIF ;
+
+ASSERT IF sT4_25 THEN
+a14_t = a12_t ELSE
+a14_t = a34_t ENDIF ;
+
+ASSERT IF sT5_28 THEN
+a58_t = a56_t AND
+sT6_31 = (a14_t < a56_t) ELSE
+sT6_31 = (a14_t < a78_t) AND
+a58_t = a78_t ENDIF ;
+
+ASSERT IF sT6_31 THEN
+a18_t = a14_t ELSE
+a18_t = a58_t ENDIF ;
+
+CHECKSAT NOT a18_s = a18_t ;
